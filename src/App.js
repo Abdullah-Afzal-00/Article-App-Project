@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import Login from "./Login";
+import Home from "./Home";
+import SignUp from "./SignUp";
+import UpdateUser from "./UpdateUser";
+import Main from "./Main";
+import Add_Article from "./Add_Article";
 
 function App() {
+  //const [authLogin, setAuthLogin] = useState(0);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="/signUp" element={<SignUp />}></Route>
+        <Route path="/main" element={<Main />}>
+          <Route path="" element={<Home />}></Route>
+          <Route path="updateUser" element={<UpdateUser />}></Route>
+          <Route path="add_article" element={<Add_Article />}></Route>
+        </Route>
+      </Routes>
+    </>
   );
 }
 
