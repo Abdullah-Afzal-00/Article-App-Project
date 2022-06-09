@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import axios from "./axios";
 
 function Add_Article() {
   const [title, setTitle] = useState("");
@@ -15,6 +16,21 @@ function Add_Article() {
     temp.splice(i, 1);
     setTags(temp);
     console.log(temp);
+  };
+
+  const submitArticle = () => {
+    axios
+      .post("http://localhost:8000/api/articles", {
+        article: { title, description, body, tagList: tags },
+      })
+      .then(() =>
+        Swal.fire({
+          //position: 'top-end',
+          icon: "success",
+          title: "Your Article is Submitted",
+        })
+      )
+      .catch((e) => console.log("Erorr Found !!!"));
   };
 
   return (
@@ -110,7 +126,11 @@ function Add_Article() {
           </ul>
           <div className="d-flex justify-content-center">
             <div className="d-inline-flex p-2">
-              <button type="button" class="btn btn-primary">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => submitArticle()}
+              >
                 Submit Article
               </button>
             </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -33,9 +33,9 @@ function Navbar() {
                 </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Pricing
-                </a>
+                <Link class="nav-link" to="searchBar/all_articles">
+                  All Articles
+                </Link>
               </li>
               <li class="nav-item">
                 <a
