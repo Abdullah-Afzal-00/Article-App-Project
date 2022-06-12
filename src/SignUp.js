@@ -12,27 +12,46 @@ function SignUp() {
 
   const checkCredentials = () => {
     console.log(username, password);
-    axios
-      .post("http://localhost:8000/api/users", {
-        user: { email: email, password: password, username: username },
-      })
-      .then((res) => {
-        Swal.fire({
-          icon: "success",
-          title: "Sign Up",
-        });
-        localStorage.setItem("email", email);
-        localStorage.setItem("username", username);
-        navigate("/main");
-      })
-      .catch((e) => {
-        console.log("Erorr Found");
-        console.log(e);
-        Swal.fire({
+    email === "" || password === "" || username === ""
+      ? Swal.fire({
           icon: "error",
-          title: "Invalid User ID or Password",
-        });
-      });
+          title: "Kindly Fill all the Information Blocks",
+        })
+      : axios
+          .post("http://localhost:8000/api/users", {
+            user: { email: email, password: password, username: username },
+          })
+          .then((res) => {
+            Swal.fire({
+              icon: "success",
+              title: "Sign Up",
+            });
+            localStorage.setItem("email", email);
+            localStorage.setItem("username", username);
+            navigate("/main");
+          })
+          .catch((e) => {
+            console.log("Erorr Found");
+            console.log(e.response.data.errors);
+            const emailmsg = e.response.data.errors.email;
+            const usermsg = e.response.data.errors.username;
+            if (emailmsg != undefined) {
+              Swal.fire({
+                icon: "error",
+                title: "This email is already taken",
+              });
+            } else if (usermsg != undefined) {
+              Swal.fire({
+                icon: "error",
+                title: "This username is already taken",
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Something Went Wrong",
+              });
+            }
+          });
   };
   return (
     <>
