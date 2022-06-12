@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "./axios";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,10 @@ function Login() {
   let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [visibilty, setVisibility] = useState(false);
+  const [textType, setTextType] = useState("password");
+
+  useEffect(() => localStorage.clear(), []);
 
   const checkCredentials = (e) => {
     //e.preventDefault();
@@ -18,7 +22,9 @@ function Login() {
       })
       .then((res) => {
         window.localStorage.setItem("token", res.data.user.token);
-        //console.log(res.data.user.token);
+        console.log(res);
+        //setUsernameID(res.data.user.username);
+        localStorage.setItem("username", res.data.user.username);
         navigate("/main");
       })
       .catch((e) => {
@@ -31,6 +37,11 @@ function Login() {
   };
   const goToSignUp = () => {
     navigate("/signUp");
+  };
+
+  const changeVisibility = () => {
+    visibilty ? setTextType("password") : setTextType("text");
+    setVisibility(!visibilty);
   };
   return (
     <>
@@ -63,14 +74,23 @@ function Login() {
               <span class="input-group-text" id="addon-wrapping">
                 Password
               </span>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Password"
-                aria-label="Password"
-                aria-describedby="addon-wrapping"
-                onChange={(event) => setPassword(event.target.value)}
-              />
+              <div className="position-relative">
+                <input
+                  type={textType}
+                  className="form-control"
+                  placeholder="Password"
+                  aria-label="Password"
+                  aria-describedby="addon-wrapping"
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+                <a onClick={() => changeVisibility()} className="eye">
+                  {visibilty ? (
+                    <i class="far fa-eye-slash" id="togglePassword" />
+                  ) : (
+                    <i class="far fa-eye" id="togglePassword" />
+                  )}
+                </a>
+              </div>
             </div>
           </div>
         </div>

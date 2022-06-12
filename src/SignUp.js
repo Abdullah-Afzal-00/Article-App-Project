@@ -21,7 +21,9 @@ function SignUp() {
           icon: "success",
           title: "Sign Up",
         });
-        navigate("/home");
+        localStorage.setItem("email", email);
+        localStorage.setItem("username", username);
+        navigate("/main");
       })
       .catch((e) => {
         console.log("Erorr Found");

@@ -89,7 +89,15 @@ function Add_Article() {
               type="button"
               class="btn btn-primary"
               onClick={() => {
-                tags.indexOf(tag) === -1
+                tag === ""
+                  ? Swal.fire({
+                      position: "top-end",
+                      icon: "error",
+                      title: "Kindly Write Something in the Tag",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    })
+                  : tags.indexOf(tag) === -1
                   ? setTags((state) => [...state, tag])
                   : Swal.fire({
                       position: "top-end",

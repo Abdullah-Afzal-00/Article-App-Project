@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 function View_an_article({ slug, SetEditArticle }) {
   const navigate = useNavigate();
   const [article, setArticle] = useState([]);
+  const [comment, setComment] = useState("");
   useEffect(() => {
     console.log(slug);
     let sl = localStorage.getItem("slug");
@@ -46,6 +47,24 @@ function View_an_article({ slug, SetEditArticle }) {
         // console.log("Can't Delete");
       });
   };
+
+  // const postComment = () => {
+  //   let sl = localStorage.getItem("slug");
+  //   axios
+  //     .post(`${URL}/articles/${sl}/comments`, {
+  //       comment: {
+  //         body: comment,
+  //       },
+  //     })
+  //     .then(() => {
+  //       Swal.fire({
+  //         icon: "success",
+  //         title: "Comment Posted",
+  //       });
+  //     })
+  //     .catch((e) => console.log("Error Found !!!"));
+  // };
+
   return (
     <>
       <h1>{article.title}</h1>
@@ -71,6 +90,14 @@ function View_an_article({ slug, SetEditArticle }) {
           Delete
         </button>
       </div>
+      {/* <input
+        onChange={(event) => {
+          setComment(event.target.value);
+        }}
+      ></input>
+      <button className="btn btn-primary" onClick={() => postComment()}>
+        Comment
+      </button> */}
     </>
   );
 }

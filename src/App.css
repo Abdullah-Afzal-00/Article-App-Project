@@ -36,3 +36,10 @@
 .authorName {
   color: yellowgreen;
 }
+
+.eye {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  color: black;
+}

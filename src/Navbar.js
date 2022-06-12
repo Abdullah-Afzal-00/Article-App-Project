@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,13 +45,8 @@ function Navbar() {
                 </Link>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link disabled"
-                  href="#"
-                  tabindex="-1"
-                  aria-disabled="true"
-                >
-                  Disabled
+                <a class="nav-link" onClick={logOut}>
+                  Logout
                 </a>
               </li>
             </ul>

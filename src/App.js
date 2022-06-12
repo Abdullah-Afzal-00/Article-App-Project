@@ -14,6 +14,7 @@ import SearchBar from "./components/SearchBar";
 import Articles_by_author from "./components/Articles_by_author";
 import Edit_Article from "./components/Edit_Article";
 import Article_by_tag from "./components/Article_by_tag";
+import Protected from "./components/protected";
 
 function App() {
   const [slug, setSlug] = useState("");
@@ -28,62 +29,65 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
-        <Route path="/main" element={<Main />}>
-          <Route path="" element={<Home />}></Route>
-          <Route path="updateUser" element={<UpdateUser />}></Route>
-          <Route path="add_article" element={<Add_Article />}></Route>
-          <Route
-            path="searchBar"
-            element={
-              <SearchBar
-                setAuthorName={setAuthorName}
-                setSearchTag={setSearchTag}
-                setArticleByAuthor={setArticleByAuthor}
-                setArticleByTag={setArticleByTag}
-              />
-            }
-          >
-            {" "}
+        <Route element={<Protected />}>
+          {" "}
+          <Route path="/main" element={<Main />}>
+            <Route path="" element={<Home />}></Route>
+            <Route path="updateUser" element={<UpdateUser />}></Route>
+            <Route path="add_article" element={<Add_Article />}></Route>
             <Route
-              path="all_articles"
-              element={<All_Articles setSlug={setSlug} />}
-            ></Route>
-            <Route
-              path="article_by_author"
+              path="searchBar"
               element={
-                <Articles_by_author
-                  authorName={authorName}
-                  setSlug={setSlug}
-                  articleByAuthor={articleByAuthor}
+                <SearchBar
+                  setAuthorName={setAuthorName}
+                  setSearchTag={setSearchTag}
                   setArticleByAuthor={setArticleByAuthor}
+                  setArticleByTag={setArticleByTag}
+                />
+              }
+            >
+              {" "}
+              <Route
+                path="all_articles"
+                element={<All_Articles setSlug={setSlug} />}
+              ></Route>
+              <Route
+                path="article_by_author"
+                element={
+                  <Articles_by_author
+                    authorName={authorName}
+                    setSlug={setSlug}
+                    articleByAuthor={articleByAuthor}
+                    setArticleByAuthor={setArticleByAuthor}
+                  />
+                }
+              ></Route>
+              <Route
+                path="article_by_tag"
+                element={
+                  <Article_by_tag
+                    searchTag={searchTag}
+                    setSlug={setSlug}
+                    articleByTag={articleByTag}
+                  />
+                }
+              ></Route>
+            </Route>
+            <Route
+              path="view_an_article"
+              element={
+                <View_an_article
+                  slug={slug}
+                  SetEditArticle={SetEditArticle}
+                  setSlug={setSlug}
                 />
               }
             ></Route>
             <Route
-              path="article_by_tag"
-              element={
-                <Article_by_tag
-                  searchTag={searchTag}
-                  setSlug={setSlug}
-                  articleByTag={articleByTag}
-                />
-              }
+              path="edit_article"
+              element={<Edit_Article slug={slug} editArticle={editArticle} />}
             ></Route>
           </Route>
-          <Route
-            path="view_an_article"
-            element={
-              <View_an_article
-                slug={slug}
-                SetEditArticle={SetEditArticle}
-                setSlug={setSlug}
-              />
-            }
-          ></Route>
-          <Route
-            path="edit_article"
-            element={<Edit_Article slug={slug} editArticle={editArticle} />}
-          ></Route>
         </Route>
       </Routes>
     </>
